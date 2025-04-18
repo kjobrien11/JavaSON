@@ -35,7 +35,7 @@ public class JavaSON {
             else if (Character.isLetterOrDigit(rawJson.charAt(i))) {
                 int index = i;
                 StringBuilder value = new StringBuilder();
-                while (Character.isLetterOrDigit(rawJson.charAt(index))) {
+                while (Character.isLetterOrDigit(rawJson.charAt(index)) || rawJson.charAt(index) == '.'){
                     value.append(rawJson.charAt(index));
                     index++;
                 }
@@ -51,5 +51,9 @@ public class JavaSON {
             }
         }
         System.out.println(json);
+    }
+
+    public String get(String key) {
+        return (String) json.get(key);
     }
 }
