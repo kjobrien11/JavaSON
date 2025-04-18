@@ -19,6 +19,7 @@ public class Main {
 
         JavaSON javason = new JavaSON(json);
         System.out.println(javason.getRawJson());
+        javason.parseJson();
 
     }
 }
