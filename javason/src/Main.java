@@ -17,31 +17,30 @@ public class Main {
 //        System.out.println("Response body: " + response.body());
 //        String json = "{\"color style\": \"red\", \"number\": 12, \"active\": true, \"name\": \"KJ OBrien\", \"GPA\": 3.90}";
         String json = "{\"style\": \"red\", \"number\": 125.3, \"$$&*#**  23421 FFD\" : true}";
-
-//        String json = "{"
-//                + "\"color\": \"red\", "
-//                + "\"number\": 12, "
-//                + "\"active\": true, "
-//                + "\"name\": \"KJ OBrien\", "
-//                + "\"GPA\": 39, "
-//                + "\"major\": \"Computer Science\", "
-//                + "\"graduated\": false, "
-//                + "\"credits\": 128, "
-//                + "\"email\": \"kj.obrien@example.com\", "
-//                + "\"phone\": \"555-1234\", "
-//                + "\"studentId\": \"S1234567\", "
-//                + "\"year\": \"Senior\", "
-//                + "\"birthDate\": \"2002-08-15\", "
-//                + "\"citizenship\": \"USA\""
-//                + "}";
-//        String json = "{\"**\" : \"!!\" }";
-
         JavaSON javason = new JavaSON(json);
-//        System.out.println(javason.getRawJson());
         javason.parseJson();
-        System.out.println(javason.get("style"));
 
-        System.out.println(javason.get("number"));
+        String json1 = "{ \"name\": \"Alice\", \"age\": 30, \"active\": true }";
+        String json2 = "{ \"city\": \"New York\", \"temperature\": 21.5, \"raining\": false }";
+        String json3 = "{ \"username\": \"user_01\", \"score\": 1000, \"banned\": null }";
+        String json4 = "{ \"flag\": true, \"count\": 0, \"message\": \"Done\" }";
+        String json5 = "{ \"code\": \"X123\", \"valid\": false, \"attempts\": 3 }";
+        javason.setRawJson(json1);
+        javason.parseJson();
+        javason.resetJson();
+        javason.setRawJson(json2);
+        javason.parseJson();
+        javason.resetJson();
+        javason.setRawJson(json3);
+        javason.parseJson();
+        javason.resetJson();
+        javason.setRawJson(json4);
+        javason.parseJson();
+        javason.resetJson();
+        javason.setRawJson(json5);
+        javason.parseJson();
+        javason.resetJson();
+
 
 
 

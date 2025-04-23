@@ -40,7 +40,6 @@ public class JavaSON {
     }
 
     private String extractValue(String json){
-        System.out.println(json);
         StringBuilder value = new StringBuilder();
         int index = json.indexOf('"')+1;
 
@@ -50,19 +49,27 @@ public class JavaSON {
                 value.append(json.charAt(index));
                 index++;
             }
-            System.out.println(1);
             return value.toString();
         //value is true, false, or null so return that value
         }else if(isTrueFalseNull(json)){
-            System.out.println(2);
             return trueFalseNullValue(json);
         // value is a number so return the trimmed version
         }else{
-            return json.trim();
+            return extractNumber(json);
         }
         //TODO add support for objects and arrays
+    }
 
-
+    private String extractNumber(String json){
+        int index = 0;
+        StringBuilder value = new StringBuilder();
+        while (index < json.length()) {
+            if(Character.isDigit(json.charAt(index)) || json.charAt(index) == '-' || json.charAt(index) == '.') {
+                value.append(json.charAt(index));
+            }
+            index++;
+        }
+        return value.toString();
     }
 
     private boolean isTrueFalseNull(String value){
@@ -91,5 +98,9 @@ public class JavaSON {
 
     public void setRawJson(String rawJson) {
         this.rawJson = rawJson;
+    }
+
+    public void resetJson(){
+        json = new HashMap<>();
     }
 }
