@@ -5,23 +5,46 @@ import java.net.http.HttpResponse;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://reqres.in/api/users?page=1"))
-                .build();
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("https://reqres.in/api/users?page=1"))
+//                .build();
+//
+//        HttpResponse<String> response = client.send(request,
+//                HttpResponse.BodyHandlers.ofString());
+//
+//        System.out.println("Status code: " + response.statusCode());
+//        System.out.println("Response body: " + response.body());
+//        String json = "{\"color style\": \"red\", \"number\": 12, \"active\": true, \"name\": \"KJ OBrien\", \"GPA\": 3.90}";
+        String json = "{\"style\": \"red\", \"number\": \"12\", \"$$&*#**  23421 FFD\" : true}";
 
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
-
-        System.out.println("Status code: " + response.statusCode());
-        System.out.println("Response body: " + response.body());
-        String json = "{\"color style\": \"red\", \"number\": 12, \"active\": true, \"name\": \"KJ OBrien\", \"GPA\": 3.90}";
+//        String json = "{"
+//                + "\"color\": \"red\", "
+//                + "\"number\": 12, "
+//                + "\"active\": true, "
+//                + "\"name\": \"KJ OBrien\", "
+//                + "\"GPA\": 39, "
+//                + "\"major\": \"Computer Science\", "
+//                + "\"graduated\": false, "
+//                + "\"credits\": 128, "
+//                + "\"email\": \"kj.obrien@example.com\", "
+//                + "\"phone\": \"555-1234\", "
+//                + "\"studentId\": \"S1234567\", "
+//                + "\"year\": \"Senior\", "
+//                + "\"birthDate\": \"2002-08-15\", "
+//                + "\"citizenship\": \"USA\""
+//                + "}";
+//        String json = "{\"**\" : \"!!\" }";
 
         JavaSON javason = new JavaSON(json);
-        System.out.println(javason.getRawJson());
+//        System.out.println(javason.getRawJson());
         javason.parseJson();
-        System.out.println(javason.get("a"));
+        System.out.println(javason.get("style"));
+
+        System.out.println(javason.get("number"));
+
 
 
     }
+
 }
