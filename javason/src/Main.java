@@ -16,7 +16,7 @@ public class Main {
 //        System.out.println("Status code: " + response.statusCode());
 //        System.out.println("Response body: " + response.body());
 //        String json = "{\"color style\": \"red\", \"number\": 12, \"active\": true, \"name\": \"KJ OBrien\", \"GPA\": 3.90}";
-        String json = "{\"style\": \"red\", \"number\": \"12\", \"$$&*#**  23421 FFD\" : true}";
+        String json = "{\"style\": \"red\", \"number\": 125.3, \"$$&*#**  23421 FFD\" : true}";
 
 //        String json = "{"
 //                + "\"color\": \"red\", "

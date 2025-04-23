@@ -29,7 +29,7 @@ public class JavaSON {
     }
 
     private String extractKey(String json){
-        System.out.println(json);
+
         StringBuilder value = new StringBuilder();
         int index = json.indexOf('"')+1;
         while (index < json.length() && json.charAt(index) != '"') {
@@ -40,6 +40,7 @@ public class JavaSON {
     }
 
     private String extractValue(String json){
+        System.out.println(json);
         StringBuilder value = new StringBuilder();
         int index = json.indexOf('"')+1;
 
@@ -49,15 +50,34 @@ public class JavaSON {
                 value.append(json.charAt(index));
                 index++;
             }
+            System.out.println(1);
+            return value.toString();
+        //value is true, false, or null so return that value
         }else if(isTrueFalseNull(json)){
-            return "true";
+            System.out.println(2);
+            return trueFalseNullValue(json);
+        // value is a number so return the trimmed version
+        }else{
+            return json.trim();
         }
+        //TODO add support for objects and arrays
 
-        return value.toString();
+
     }
 
     private boolean isTrueFalseNull(String value){
         return value.contains("null") || value.contains("false") || value.contains("true");
+    }
+    private String trueFalseNullValue(String value){
+        if(value.contains("null")){
+            return "null";
+        }else if(value.contains("false")){
+            return "false";
+        }else if(value.contains("true")){
+            return "true";
+        }else{
+            return "SOMETHING WENT WRONG IN TRUE FALSE NULL PARSE";
+        }
     }
 
 
