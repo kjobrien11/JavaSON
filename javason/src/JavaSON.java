@@ -5,10 +5,91 @@ public class JavaSON {
 
     private String rawJson;
     private Map<String, Object> json;
+    private record ValueAndPostion(String value, int position) {}
 
     public JavaSON(String rawJson) {
         this.rawJson = rawJson;
         json = new HashMap<>();
+    }
+
+    public void parseJson(){
+        String key = "";
+        String value = "";
+        String[] keyValuePairs = splitKeyValuePairs(rawJson);
+        for (int i = 0; i < keyValuePairs.length; i++) {
+            key = extractKey(keyValuePairs[i].split(":")[0]);
+            value = extractValue(keyValuePairs[i].split(":")[1]);
+            json.put(key, value);
+        }
+        System.out.println(json);
+    }
+
+    private String[] splitKeyValuePairs(String json){
+        return json.split(",");
+    }
+
+    private String extractKey(String json){
+
+        StringBuilder value = new StringBuilder();
+        int index = json.indexOf('"')+1;
+        while (index < json.length() && json.charAt(index) != '"') {
+            value.append(json.charAt(index));
+            index++;
+        }
+        return value.toString();
+    }
+
+    private String extractValue(String json){
+        StringBuilder value = new StringBuilder();
+        int index = json.indexOf('"')+1;
+
+        //value is a string so parse it as is
+        if(index != 0){
+            while (index < json.length() && json.charAt(index) != '"') {
+                value.append(json.charAt(index));
+                index++;
+            }
+            return value.toString();
+        //value is true, false, or null so return that value
+        }else if(isTrueFalseNull(json)){
+            return trueFalseNullValue(json);
+        // value is a number so return the trimmed version
+        }else{
+            return extractNumber(json);
+        }
+        //TODO add support for objects and arrays
+    }
+
+    private String extractNumber(String json){
+        int index = 0;
+        StringBuilder value = new StringBuilder();
+        while (index < json.length()) {
+            if(Character.isDigit(json.charAt(index)) || json.charAt(index) == '-' || json.charAt(index) == '.' || json.charAt(index) == 'E' || json.charAt(index) == 'e') {
+                value.append(json.charAt(index));
+            }
+            index++;
+        }
+        return value.toString();
+    }
+
+    private boolean isTrueFalseNull(String value){
+        return value.contains("null") || value.contains("false") || value.contains("true");
+    }
+    private String trueFalseNullValue(String value){
+        if(value.contains("null")){
+            return "null";
+        }else if(value.contains("false")){
+            return "false";
+        }else if(value.contains("true")){
+            return "true";
+        }else{
+            return "SOMETHING WENT WRONG IN TRUE FALSE NULL PARSE";
+        }
+    }
+
+
+    public String get(String key) {
+        return (String) json.get(key);
     }
 
     public String getRawJson() {
@@ -19,37 +100,7 @@ public class JavaSON {
         this.rawJson = rawJson;
     }
 
-    public void parseJson(){
-        String key = "";
-        for (int i = 0; i < rawJson.length(); i++) {
-
-            if(rawJson.charAt(i) == ' '){
-                continue;
-            }
-//            else if (rawJson.charAt(i) == '"'){
-//                int nextQuoteIndex= rawJson.indexOf('"', i + 1);
-//                key = rawJson.substring(i + 1, nextQuoteIndex);
-//                System.out.println(key);
-//                i = nextQuoteIndex;
-//            }
-            else if (Character.isLetterOrDigit(rawJson.charAt(i))) {
-                int index = i;
-                StringBuilder value = new StringBuilder();
-                while (Character.isLetterOrDigit(rawJson.charAt(index))) {
-                    value.append(rawJson.charAt(index));
-                    index++;
-                }
-                System.out.println(value.toString());
-                i = index;
-
-                if (key.isEmpty()) {
-                    key = value.toString();
-                } else {
-                    json.put(key, value.toString());
-                    key = "";
-                }
-            }
-        }
-        System.out.println(json);
+    public void resetJson(){
+        json = new HashMap<>();
     }
 }
