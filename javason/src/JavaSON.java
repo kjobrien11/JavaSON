@@ -53,7 +53,7 @@ public class JavaSON {
         //value is true, false, or null so return that value
         }else if(isTrueFalseNull(json)){
             return trueFalseNullValue(json);
-        // value is a number so return the trimmed version
+        // value is a number
         }else{
             return extractNumber(json);
         }
@@ -86,7 +86,6 @@ public class JavaSON {
             return "SOMETHING WENT WRONG IN TRUE FALSE NULL PARSE";
         }
     }
-
 
     public String get(String key) {
         return (String) json.get(key);
