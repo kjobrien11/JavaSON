@@ -15,7 +15,7 @@ public class Main {
 
         System.out.println("Status code: " + response.statusCode());
         System.out.println("Response body: " + response.body());
-        String json = "{\"color\": \"red\", \"number\": 12, \"active\": true, \"name\": \"KJ OBrien\", \"GPA\": 3.90}";
+        String json = "{\"color style\": \"red\", \"number\": 12, \"active\": true, \"name\": \"KJ OBrien\", \"GPA\": 3.90}";
 
         JavaSON javason = new JavaSON(json);
         System.out.println(javason.getRawJson());
