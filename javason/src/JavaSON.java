@@ -64,7 +64,7 @@ public class JavaSON {
         int index = 0;
         StringBuilder value = new StringBuilder();
         while (index < json.length()) {
-            if(Character.isDigit(json.charAt(index)) || json.charAt(index) == '-' || json.charAt(index) == '.') {
+            if(Character.isDigit(json.charAt(index)) || json.charAt(index) == '-' || json.charAt(index) == '.' || json.charAt(index) == 'E' || json.charAt(index) == 'e') {
                 value.append(json.charAt(index));
             }
             index++;

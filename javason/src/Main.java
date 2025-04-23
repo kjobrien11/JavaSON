@@ -20,26 +20,21 @@ public class Main {
         JavaSON javason = new JavaSON(json);
         javason.parseJson();
 
-        String json1 = "{ \"name\": \"Alice\", \"age\": 30, \"active\": true }";
-        String json2 = "{ \"city\": \"New York\", \"temperature\": 21.5, \"raining\": false }";
-        String json3 = "{ \"username\": \"user_01\", \"score\": 1000, \"banned\": null }";
-        String json4 = "{ \"flag\": true, \"count\": 0, \"message\": \"Done\" }";
-        String json5 = "{ \"code\": \"X123\", \"valid\": false, \"attempts\": 3 }";
-        javason.setRawJson(json1);
-        javason.parseJson();
-        javason.resetJson();
-        javason.setRawJson(json2);
-        javason.parseJson();
-        javason.resetJson();
-        javason.setRawJson(json3);
-        javason.parseJson();
-        javason.resetJson();
-        javason.setRawJson(json4);
-        javason.parseJson();
-        javason.resetJson();
-        javason.setRawJson(json5);
-        javason.parseJson();
-        javason.resetJson();
+        String[] jsonTests = {
+                "{ \"name\": \"Alice\", \"age\": 30, \"active\": true }",
+                "{ \"city\": \"New York\", \"temperature\": 21.5, \"raining\": false }",
+                "{ \"username\": \"user_01\", \"score\": 1000, \"banned\": null }",
+                "{ \"flag\": true, \"count\": 0, \"message\": \"Done\" }",
+                "{ \"code\": \"X123\", \"valid\": false, \"attempts\": 3 }",
+                "{ \"value1\": 1.23e4, \"value2\": 4E-3, \"value3\": 5.67e+2 }"
+        };
+
+        for (String test : jsonTests) {
+            javason.setRawJson(test);
+            javason.parseJson();
+            javason.resetJson();
+        }
+
 
 
 
