@@ -16,24 +16,34 @@ public class Main {
 //        System.out.println("Status code: " + response.statusCode());
 //        System.out.println("Response body: " + response.body());
 //        String json = "{\"color style\": \"red\", \"number\": 12, \"active\": true, \"name\": \"KJ OBrien\", \"GPA\": 3.90}";
-        String json = "{\"style\": \"red\", \"number\": 125.3, \"$$&*#**  23421 FFD\" : true}";
+
+
+//        String json = "{\"style\": \"red\", \"number\": 125.3, \"$$&*#**  23421 FFD\" : true}";
+        String json = "{ \"name\": \"Smith, John\", \"location\": \"New York, NY\" }";
         JavaSON javason = new JavaSON(json);
         javason.parseJson();
+        boolean testSuite = true;
 
         String[] jsonTests = {
-                "{ \"name\": \"Alice\", \"age\": 30, \"active\": true }",
+                "{ \"name\": \"Alice     \", \"age\": 30, \"active\": true }",
                 "{ \"city\": \"New York\", \"temperature\": 21.5, \"raining\": false }",
                 "{ \"username\": \"user_01\", \"score\": 1000, \"banned\": null }",
                 "{ \"flag\": true, \"count\": 0, \"message\": \"Done\" }",
                 "{ \"code\": \"X123\", \"valid\": false, \"attempts\": 3 }",
-                "{ \"value1\": 1.23e4, \"value2\": 4E-3, \"value3\": 5.67e+2 }"
+                "{ \"value1\": 1.23e4, \"value2\": 4E-3, \"value3\": 5.67e+2 }",
+                "{ \"name\": \"Smith, John\", \"location\": \"New York, NY\" }",
+                "{ \"quote\": \"To be, or not to be\", \"author\": \"Shakespeare\" }",
+                "{ \"groceries\": \"milk, eggs, bread\", \"status\": \"      pending       \" }"
         };
 
-        for (String test : jsonTests) {
-            javason.setRawJson(test);
-            javason.parseJson();
-            javason.resetJson();
+        if(testSuite){
+            for (String test : jsonTests) {
+                javason.setRawJson(test);
+                javason.parseJson();
+                javason.resetJson();
+            }
         }
+
 
 
 

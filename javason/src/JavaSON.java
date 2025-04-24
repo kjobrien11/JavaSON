@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JavaSON {
@@ -24,9 +26,35 @@ public class JavaSON {
         System.out.println(json);
     }
 
-    private String[] splitKeyValuePairs(String json){
-        return json.split(",");
+    private String[] splitKeyValuePairs(String json) {
+        List<String> pairs = new ArrayList<>();
+        boolean inString = false;
+        StringBuilder current = new StringBuilder();
+
+        for (int i = 0; i < json.length(); i++) {
+            char currentChar = json.charAt(i);
+            if (currentChar == '\\' && i + 1 < json.length() && json.charAt(i + 1) == '"') {
+                current.append(currentChar).append(json.charAt(++i));
+                continue;
+            }
+            if (currentChar == '"') {
+                inString = !inString;
+            }
+
+            if (currentChar == ',' && !inString) {
+                pairs.add(current.toString().trim());
+                current.setLength(0);
+            } else {
+                current.append(currentChar);
+            }
+        }
+        if (!current.isEmpty()) {
+            pairs.add(current.toString().trim());
+        }
+        return pairs.toArray(new String[0]);
     }
+
+
 
     private String extractKey(String json){
 
@@ -53,7 +81,7 @@ public class JavaSON {
         //value is true, false, or null so return that value
         }else if(isTrueFalseNull(json)){
             return trueFalseNullValue(json);
-        // value is a number so return the trimmed version
+        // value is a number
         }else{
             return extractNumber(json);
         }
@@ -64,7 +92,7 @@ public class JavaSON {
         int index = 0;
         StringBuilder value = new StringBuilder();
         while (index < json.length()) {
-            if(Character.isDigit(json.charAt(index)) || json.charAt(index) == '-' || json.charAt(index) == '.' || json.charAt(index) == 'E' || json.charAt(index) == 'e') {
+            if(Character.isDigit(json.charAt(index)) || json.charAt(index) == '-' || json.charAt(index) == '+' || json.charAt(index) == '.' || json.charAt(index) == 'E' || json.charAt(index) == 'e') {
                 value.append(json.charAt(index));
             }
             index++;
