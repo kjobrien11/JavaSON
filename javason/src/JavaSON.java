@@ -73,20 +73,27 @@ public class JavaSON {
     }
 
     private boolean isTrueFalseNull(String value){
-        return value.contains("null") || value.contains("false") || value.contains("true");
+        StringBuilder valueBuilder = new StringBuilder();
+        for(int i = 0; i < value.length(); i++){
+            if(Character.isAlphabetic(value.charAt(i))){
+                valueBuilder.append(value.charAt(i));
+            }
+        }
+        return valueBuilder.toString().equals("null") || valueBuilder.toString().equals("false") || valueBuilder.toString().equals("true");
     }
     private String trueFalseNullValue(String value){
-        if(value.contains("null")){
-            return "null";
-        }else if(value.contains("false")){
-            return "false";
-        }else if(value.contains("true")){
-            return "true";
+        StringBuilder valueBuilder = new StringBuilder();
+        for(int i = 0; i < value.length(); i++){
+            if(Character.isAlphabetic(value.charAt(i))){
+                valueBuilder.append(value.charAt(i));
+            }
+        }
+        if(valueBuilder.toString().equals("null") || valueBuilder.toString().equals("false") || valueBuilder.toString().equals("true")){
+            return valueBuilder.toString();
         }else{
-            return "SOMETHING WENT WRONG IN TRUE FALSE NULL PARSE";
+            return "SOMETHING WENT WRONG IN NULL TRUE FALSE";
         }
     }
-
 
     public String get(String key) {
         return (String) json.get(key);
