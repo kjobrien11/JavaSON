@@ -1,13 +1,9 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JavaSON {
 
     private String rawJson;
     private Map<String, Object> json;
-    private record ValueAndPostion(String value, int position) {}
 
     public JavaSON(String rawJson) {
         this.rawJson = rawJson;
@@ -51,10 +47,11 @@ public class JavaSON {
         if (!current.isEmpty()) {
             pairs.add(current.toString().trim());
         }
+        for (String pair : pairs) {
+            System.out.println(pair);
+        }
         return pairs.toArray(new String[0]);
     }
-
-
 
     private String extractKey(String json){
 
