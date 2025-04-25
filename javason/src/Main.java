@@ -31,7 +31,7 @@ public class Main {
                 + "}";
         JavaSON javason = new JavaSON(json);
         javason.parseJson();
-        boolean testSuite = false;
+        boolean testSuite = true;
 
         String[] jsonTests = {
                 "{ \"name\": \"Alice     \", \"age\": 30, \"active\": true }",

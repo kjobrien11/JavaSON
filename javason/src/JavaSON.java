@@ -10,13 +10,13 @@ public class JavaSON {
         json = new HashMap<>();
     }
 
-    public void parseJson(){
+    public void parseJson() {
         String key = "";
         String value = "";
         String[] keyValuePairs = splitKeyValuePairs(rawJson);
         for (int i = 0; i < keyValuePairs.length; i++) {
             int splitValue = keyValuePairs[i].indexOf(":");
-            key = extractKey(keyValuePairs[i].substring(0, splitValue));
+            key = extractKey(keyValuePairs[i].substriqng(0, splitValue));
             value = extractValue(keyValuePairs[i].substring(splitValue));
             json.put(key, value);
         }
@@ -29,7 +29,7 @@ public class JavaSON {
         boolean inObject = false;
         StringBuilder current = new StringBuilder();
 
-        for (int i = 1; i < json.length()-1; i++) {
+        for (int i = 1; i < json.length() - 1; i++) {
             char currentChar = json.charAt(i);
             if (currentChar == '\\' && i + 1 < json.length() && json.charAt(i + 1) == '"') {
                 current.append(currentChar).append(json.charAt(++i));
@@ -64,10 +64,10 @@ public class JavaSON {
         return pairs.toArray(new String[0]);
     }
 
-    private String extractKey(String json){
+    private String extractKey(String json) {
 
         StringBuilder value = new StringBuilder();
-        int index = json.indexOf('"')+1;
+        int index = json.indexOf('"') + 1;
         while (index < json.length() && json.charAt(index) != '"') {
             value.append(json.charAt(index));
             index++;
@@ -75,27 +75,27 @@ public class JavaSON {
         return value.toString();
     }
 
-    private String extractValue(String json){
+    private String extractValue(String json) {
         StringBuilder value = new StringBuilder();
-        int index = json.indexOf('"')+1;
+        int index = json.indexOf('"') + 1;
 
         //value is a string so parse it as is
-        if(index != 0){
+        if (index != 0) {
             while (index < json.length() && json.charAt(index) != '"') {
                 value.append(json.charAt(index));
                 index++;
             }
             return value.toString();
-        //value is true, false, or null so return that value
-        }else if(isTrueFalseNull(json)){
+            //value is true, false, or null so return that value
+        }else if (isTrueFalseNull(json)) {
             return trueFalseNullValue(json);
-        // value is a number
-        }
-        else{
+            // value is a number
+        }else {
             return extractNumber(json);
         }
         //TODO add support for objects and arrays
     }
+
 
     private String extractNumber(String json){
         int index = 0;
