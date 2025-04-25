@@ -15,8 +15,9 @@ public class JavaSON {
         String value = "";
         String[] keyValuePairs = splitKeyValuePairs(rawJson);
         for (int i = 0; i < keyValuePairs.length; i++) {
-            key = extractKey(keyValuePairs[i].split(":")[0]);
-            value = extractValue(keyValuePairs[i].split(":")[1]);
+            int splitValue = keyValuePairs[i].indexOf(":");
+            key = extractKey(keyValuePairs[i].substring(0, splitValue));
+            value = extractValue(keyValuePairs[i].substring(splitValue));
             json.put(key, value);
         }
         System.out.println(json);
@@ -25,9 +26,10 @@ public class JavaSON {
     private String[] splitKeyValuePairs(String json) {
         List<String> pairs = new ArrayList<>();
         boolean inString = false;
+        boolean inObject = false;
         StringBuilder current = new StringBuilder();
 
-        for (int i = 0; i < json.length(); i++) {
+        for (int i = 1; i < json.length()-1; i++) {
             char currentChar = json.charAt(i);
             if (currentChar == '\\' && i + 1 < json.length() && json.charAt(i + 1) == '"') {
                 current.append(currentChar).append(json.charAt(++i));
@@ -37,7 +39,16 @@ public class JavaSON {
                 inString = !inString;
             }
 
-            if (currentChar == ',' && !inString) {
+            if (currentChar == '{') {
+                inObject = true;
+            }
+
+            if (currentChar == '}') {
+                inObject = false;
+            }
+
+
+            if (currentChar == ',' && !inString && !inObject) {
                 pairs.add(current.toString().trim());
                 current.setLength(0);
             } else {
@@ -47,9 +58,9 @@ public class JavaSON {
         if (!current.isEmpty()) {
             pairs.add(current.toString().trim());
         }
-        for (String pair : pairs) {
-            System.out.println(pair);
-        }
+//        for (String pair : pairs) {
+//            System.out.println(pair);
+//        }
         return pairs.toArray(new String[0]);
     }
 
@@ -79,7 +90,8 @@ public class JavaSON {
         }else if(isTrueFalseNull(json)){
             return trueFalseNullValue(json);
         // value is a number
-        }else{
+        }
+        else{
             return extractNumber(json);
         }
         //TODO add support for objects and arrays
