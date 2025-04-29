@@ -14,10 +14,10 @@ public class JavaSON {
         String key = "";
         String value = "";
         String[] keyValuePairs = splitKeyValuePairs(rawJson);
-        for (int i = 0; i < keyValuePairs.length; i++) {
-            int splitValue = keyValuePairs[i].indexOf(":");
-            key = extractKey(keyValuePairs[i].substriqng(0, splitValue));
-            value = extractValue(keyValuePairs[i].substring(splitValue));
+        for (String keyValuePair : keyValuePairs) {
+            int splitValue = keyValuePair.indexOf(":");
+            key = extractKey(keyValuePair.substring(0, splitValue));
+            value = extractValue(keyValuePair.substring(splitValue));
             json.put(key, value);
         }
         System.out.println(json);
