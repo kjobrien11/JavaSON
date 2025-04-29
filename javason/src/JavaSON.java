@@ -15,6 +15,7 @@ public class JavaSON {
         String value = "";
         String[] keyValuePairs = splitKeyValuePairs(rawJson);
         for (String keyValuePair : keyValuePairs) {
+            System.out.println(keyValuePair);
             int splitValue = keyValuePair.indexOf(":");
             key = extractKey(keyValuePair.substring(0, splitValue));
             value = extractValue(keyValuePair.substring(splitValue));
@@ -27,6 +28,7 @@ public class JavaSON {
         List<String> pairs = new ArrayList<>();
         boolean inString = false;
         boolean inObject = false;
+        boolean inArray = false;
         StringBuilder current = new StringBuilder();
 
         for (int i = 1; i < json.length() - 1; i++) {
@@ -47,8 +49,16 @@ public class JavaSON {
                 inObject = false;
             }
 
+            if (currentChar == '[') {
+                inObject = true;
+            }
 
-            if (currentChar == ',' && !inString && !inObject) {
+            if (currentChar == ']') {
+                inObject = false;
+            }
+
+
+            if (currentChar == ',' && !inString && !inObject && !inObject) {
                 pairs.add(current.toString().trim());
                 current.setLength(0);
             } else {
@@ -77,9 +87,13 @@ public class JavaSON {
 
     private String extractValue(String json) {
         StringBuilder value = new StringBuilder();
+        System.out.println(json);
         int index = json.indexOf('"') + 1;
 
         //value is a string so parse it as is
+        if(json.indexOf('[') != -1){
+            System.out.println("array");
+        }
         if (index != 0) {
             while (index < json.length() && json.charAt(index) != '"') {
                 value.append(json.charAt(index));

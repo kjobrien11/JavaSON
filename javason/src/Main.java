@@ -19,19 +19,20 @@ public class Main {
 
 
 //        String json = "{\"style\": \"red\", \"number\": 125.3, \"$$&*#**  23421 FFD\" : true}";
-        String json = "{"
-                + "\"name\": \"Alice\", "
-                + "\"age\": 30, "
-                + "\"address\": {"
-                + "\"street\": \"123 Main St\", "
-                + "\"city\": \"Wonderland\", "
-                + "\"zip\": \"12345\""
-                + "}, "
-                + "\"active\": true"
-                + "}";
+//        String json = "{"
+//                + "\"name\": \"Alice\", "
+//                + "\"age\": 30, "
+//                + "\"address\": {"
+//                + "\"street\": \"123 Main St\", "
+//                + "\"city\": \"Wonderland\", "
+//                + "\"zip\": \"12345\""
+//                + "}, "
+//                + "\"active\": true"
+//                + "}";
+        String json = "{ \"test\" : [\"a\", 1, true] }";
         JavaSON javason = new JavaSON(json);
         javason.parseJson();
-        boolean testSuite = true;
+        boolean testSuite = false;
 
         String[] jsonTests = {
                 "{ \"name\": \"Alice     \", \"age\": 30, \"active\": true }",
